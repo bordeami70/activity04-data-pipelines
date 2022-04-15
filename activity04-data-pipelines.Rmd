@@ -68,7 +68,7 @@ I try to be consistent with notation so here are some other forms that you might
 # aware of the specific package the read_csv
 # function comes from.
 
-college_recent_grads <-readr::read_csv("data/recent-grads.csv")
+college_recent_grads <-read_csv(file ="data/recent-grads.csv")
 
 college_recent_grads
 
@@ -172,9 +172,9 @@ In the R code chunk below, name it `rearrange_college`.
 Take the `college_recent_grads` dataset, *then* `arrange` the dataset by `unemployment_rate`.
 
 ```{r}
-    rearrange_college <-  arrange(college_recent_grads, unemployment_rate)
+    (rearrange_college <-  arrange(college_recent_grads, unemployment_rate))
       
-      rearrange_college
+   
 ```
 
 We have all of the information to answer our question (i.e., "Which major has the lowest unemployment rate?"), but it is not in an effective format.
@@ -235,9 +235,22 @@ Using the `stem_categories` vector and knowledge that the median salary for all 
 Only display the variables `major`, `p25th`, `median`, and `p75th`
 Name the code chunk `stem_low_salaries`.
 
+
+
 ```{r}
+stem_low_salaries <- college_recent_grads %>% 
+  filter( major_category == stem_categories & median < 36000) %>% 
+  select(major, p25th, median, p75th)
+
+stem_low_salaries
+```
 
 
+```{r}
+stem_salaries <- college_recent_grads %>% 
+  select(major,median)
+
+stem_salaries
 ```
 
 Discuss your output as it relates to the research question.
